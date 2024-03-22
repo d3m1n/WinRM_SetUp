@@ -15,7 +15,7 @@
 # To run this script in Powershell:
 #
 # [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-# $url = "https://raw.githubusercontent.com/ansible/ansible-documentation/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+# $url = "https://raw.githubusercontent.com/d3m1n/WinRM_SetUp/main/ConfigureRemotingForAnsible.ps1"
 # $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 #
 # (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
@@ -45,6 +45,9 @@
 #
 # Use option -SubjectName to specify the CN name of the certificate. This
 # defaults to the system's hostname and generally should not be specified.
+#
+# Use option -Port to specify the port number to use for WinRM. This 
+# defaults to 5986.
 
 # Written by Trond Hindenes <trond@hindenes.com>
 # Updated by Chris Church <cchurch@ansible.com>
