@@ -48,6 +48,8 @@
 #
 # Use option -Port to specify the port number to use for WinRM. This 
 # defaults to 5986.
+#
+# Use option -DisableWinRMHttpListeners to disable the HTTP listener.
 
 # Written by Trond Hindenes <trond@hindenes.com>
 # Updated by Chris Church <cchurch@ansible.com>
@@ -82,7 +84,8 @@ Param (
     [switch]$GlobalHttpFirewallAccess,
     [switch]$DisableBasicAuth = $false,
     [switch]$EnableCredSSP,
-    [int]$Port = 5986
+    [int]$Port = 5986,
+    [switch]$DisableWinRMHttpListeners
 )
 
 Function Write-ProgressLog {
@@ -400,6 +403,11 @@ If ($EnableCredSSP) {
 
 If ($GlobalHttpFirewallAccess) {
     Enable-GlobalHttpFirewallAccess
+}
+
+# If DisableWinRMHttpListeners is set to true
+If ($DisableWinRMHttpListener) {
+    Get-ChildItem WSMan:\localhost\Listener | Where-Object { $_.Keys -like "TRANSPORT=HTTP" } | Remove-WSManInstance
 }
 
 # Configure firewall to allow WinRM HTTPS connections.
