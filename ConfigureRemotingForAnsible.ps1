@@ -431,7 +431,7 @@ Else {
 $httpResult = Invoke-Command -ComputerName "localhost" -ScriptBlock { $using:env:COMPUTERNAME } -ErrorVariable httpError -ErrorAction SilentlyContinue
 $httpsOptions = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck
 
-$httpsResult = New-PSSession -UseSSL -ComputerName "localhost" -SessionOption $httpsOptions -ErrorVariable httpsError -ErrorAction SilentlyContinue
+$httpsResult = New-PSSession -UseSSL -ComputerName "localhost" -Port ${Port} -SessionOption $httpsOptions -ErrorVariable httpsError -ErrorAction SilentlyContinue
 
 If ($httpResult -and $httpsResult) {
     Write-Verbose "HTTP: Enabled | HTTPS: Enabled"
