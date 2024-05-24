@@ -407,7 +407,11 @@ If ($GlobalHttpFirewallAccess) {
 
 # If DisableWinRMHttpListeners is set to true
 If ($DisableWinRMHttpListeners) {
-    Get-ChildItem WSMan:\localhost\Listener | Where-Object { $_.Keys -like "TRANSPORT=HTTP" } | Remove-WSManInstance
+    Get-WSManInstance -ResourceURI winrm/config/Listener -Enumerate | 
+    Where-Object { $_.Transport -eq "HTTP" } | 
+    ForEach-Object { 
+        Remove-WSManInstance -ResourceURI winrm/config/Listener -SelectorSet @{Address=$_.Address; Transport=$_.Transport}
+    }
 }
 
 # Configure firewall to allow WinRM HTTPS connections.
