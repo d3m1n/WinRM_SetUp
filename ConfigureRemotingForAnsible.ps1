@@ -406,7 +406,7 @@ If ($GlobalHttpFirewallAccess) {
 }
 
 # If DisableWinRMHttpListeners is set to true
-If ($DisableWinRMHttpListener) {
+If ($DisableWinRMHttpListeners) {
     Get-ChildItem WSMan:\localhost\Listener | Where-Object { $_.Keys -like "TRANSPORT=HTTP" } | Remove-WSManInstance
 }
 
